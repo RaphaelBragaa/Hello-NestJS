@@ -1,16 +1,23 @@
-import { Controller, Get, Param, Post, Body, HttpCode, HttpStatus,Put , Delete  } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, HttpCode, HttpStatus,Put , Delete, NotFoundException  } from '@nestjs/common';
 import { CoursesService } from './courses.service';
+import { NotFoundError } from 'rxjs';
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly courseService: CoursesService) {}
   @Get()
   findAll() {
-    return this.courseService.findAll();
+    const response = this.courseService.findAll();
+    if (response.length === 0) {
+      throw new NotFoundException();
+    }
   }
 
   @Get(':id')
   findOne(@Param('id') id: number) {
-    return this.courseService.findOne(+id);
+    const response = this.courseService.findOne(+id);
+    if (!response) {
+      throw new NotFoundException(`Not found Course id ${id}`);
+    }
   }
 
   @HttpCode(204)
