@@ -1,7 +1,8 @@
-import { Controller, Get, Param, Post, Body, HttpCode, HttpStatus, Res, Patch, Delete } from '@nestjs/common';
-
+import { Controller, Get, Param, Post, Body, HttpCode, HttpStatus, Res, Patch, Delete  } from '@nestjs/common';
+import { CoursesService } from './courses.service';
 @Controller('courses')
 export class CoursesController {
+  constructor(private readonly courseService: CoursesService) {}
   @Get('list')
   findAll(@Res() response) {
     return response.status(200).json({ message: 'lista adulta' });
