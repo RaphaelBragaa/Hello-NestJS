@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Post, Body, HttpCode, HttpStatus,Put , Delete, NotFoundException  } from '@nestjs/common';
 import { CoursesService } from './courses.service';
-import { NotFoundError } from 'rxjs';
+
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly courseService: CoursesService) {}
